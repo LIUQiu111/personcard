@@ -65,8 +65,9 @@ Cloudflare 那边记得把这条 CNAME 设为 **DNS only（灰云）**，否则 
 
 | 位置 | 关键字 | 说明 |
 |---|---|---|
-| — | `liuqiu2778680280@gmail.com` | 邮箱已填（3 处：`EMAIL` 变量、`mailto:` ×2、`small` 展示）。换邮箱时全局替换即可 |
-| head | `og:url` | 改成名片实际地址（自定义域名之后） |
+| — | `liuqiu2778680280@gmail.com` | 邮箱已填（4 处）。换邮箱全局替换即可 |
+| head | `og:url` | 已设为 `https://card.chukai.cc`，换域名时同步改 |
+| root | `CNAME` | 已填 `card.chukai.cc`，DNS 生效后再推 |
 | assets | — | 想换头像就把 `.avatar` 里的 `<span>CK</span>` 换成 `<img>` |
 
 ## 隐私提醒
