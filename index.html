@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>初开 · ChuKai</title>
+<meta name="description" content="初开（ChuKai）。">
+<meta property="og:title" content="初开 · ChuKai">
+<meta property="og:description" content="初开（ChuKai）。">
+<meta property="og:url" content="https://xn--yet07uxvggp2bm4m.xyz">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --glass: rgba(255,255,255,.10);
+  --glass-b: rgba(255,255,255,.20);
+  --txt: #fff;
+  --txt-dim: rgba(255,255,255,.62);
+  --shadow: 0 8px 32px rgba(0,0,0,.28);
+  --radius: 18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Noto Sans SC',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  color:var(--txt);
+  background:#12141a;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ 背景层：把这里换成你的图 ============ */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  /* 默认渐变。换图：把下面这行改成 url('bg.jpg') 并删掉 gradient */
+  background-image:
+    radial-gradient(120% 90% at 22% 18%, #4a5568 0%, transparent 55%),
+    radial-gradient(110% 80% at 82% 32%, #8b6f4e 0%, transparent 52%),
+    radial-gradient(100% 100% at 50% 100%, #2d3542 0%, #161a21 70%);
+  transform:scale(1.02);
+  transition:transform .6s ease;
+}
+.bg::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(160deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.12) 42%, rgba(0,0,0,.46) 100%);
+}
+body.has-image .bg{background-image:var(--bg-img)}
+@media (min-width:900px){ body:hover .bg{transform:scale(1.045)} }
+
+/* ============ 布局容器 ============ */
+.wrap{
+  position:relative;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  padding:22px clamp(16px,4vw,48px);
+  max-width:1400px;
+  margin:0 auto;
+}
+
+/* ============ 顶栏 ============ */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  flex-shrink:0;
+}
+.clock-box{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:14px 20px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow);
+}
+.clock-date{font-size:12px;color:var(--txt-dim);letter-spacing:.06em}
+.clock-time{font-size:30px;font-weight:300;letter-spacing:.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+.clock-time span{font-size:15px;color:var(--txt-dim);margin-left:2px}
+
+.quote-box{
+  max-width:min(340px,44vw);
+  padding:14px 20px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow);
+  text-align:right;
+}
+.quote-box p{font-size:13.5px;line-height:1.7;font-weight:300;color:rgba(255,255,255,.9)}
+.quote-box cite{display:block;margin-top:8px;font-size:11.5px;font-style:normal;color:var(--txt-dim)}
+
+/* ============ 中部：左资料 + 右图标 ============ */
+.main{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:32px;
+  min-height:0;
+}
+
+/* 左侧个人资料 */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  padding:26px 30px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:24px;
+  backdrop-filter:blur(20px) saturate(170%);
+  -webkit-backdrop-filter:blur(20px) saturate(170%);
+  box-shadow:var(--shadow);
+  max-width:520px;
+}
+.avatar{
+  width:88px;
+  height:88px;
+  flex-shrink:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:29px;
+  font-weight:500;
+  letter-spacing:.04em;
+  background:linear-gradient(145deg,rgba(255,255,255,.30),rgba(255,255,255,.08));
+  border:1.5px solid rgba(255,255,255,.42);
+  overflow:hidden;
+  user-select:none;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.info h1{font-size:26px;font-weight:500;letter-spacing:.03em;line-height:1.2}
+.info .sub{margin-top:5px;font-size:12.5px;color:var(--txt-dim);letter-spacing:.05em}
+.info .links{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px}
+.info .links a{
+  font-size:12.5px;
+  color:rgba(255,255,255,.78);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.24);
+  padding-bottom:1px;
+  transition:color .2s,border-color .2s;
+}
+.info .links a:hover{color:#fff;border-color:#fff}
+
+/* 右侧图标栏 */
+.icons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex-shrink:0;
+  width:196px;              /* 固定整栏宽度，7 张卡片等宽对齐 */
+  margin-left:auto;         /* 始终贴右边，不被左侧资料挤压跑位 */
+}
+.icon{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;               /* 撑满栏宽，长度统一 */
+  height:46px;              /* 高度统一，视觉成等距方块列 */
+  padding:0 16px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:14px;
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow);
+  text-decoration:none;
+  color:var(--txt);
+  transition:transform .22s cubic-bezier(.2,.8,.3,1), background .22s, border-color .22s;
+}
+.icon:hover{
+  transform:translateX(-6px);
+  background:rgba(255,255,255,.19);
+  border-color:rgba(255,255,255,.36);
+}
+.icon svg{
+  width:19px;height:19px;
+  flex:0 0 19px;            /* 固定图标占位，文字起点全部对齐 */
+  stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;opacity:.92;
+}
+.icon .label{
+  font-size:13.5px;
+  letter-spacing:.04em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;   /* 万一以后加了超长名字也不撑破 */
+  min-width:0;
+}
+
+/* ============ 樱花画布 ============ */
+#sakura{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.85;
+}
+
+/* ============ 播放器 · 黑客风进度条 ============ */
+.pl-box{
+  position:fixed;
+  left:clamp(14px,3vw,34px);
+  bottom:clamp(52px,7vh,74px);
+  z-index:60;
+  width:min(272px,calc(100vw - 28px));
+  padding:11px 13px 10px;
+  border-radius:14px;
+  background:rgba(10,14,16,.44);
+  border:1px solid rgba(120,255,214,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.34), inset 0 0 22px rgba(120,255,214,.03);
+  backdrop-filter:blur(16px) saturate(1.15);
+  -webkit-backdrop-filter:blur(16px) saturate(1.15);
+  font-family:'SFMono-Regular',ui-monospace,Menlo,Consolas,'Courier New',monospace;
+  opacity:0;
+  transform:translateY(10px);
+  animation:plIn .7s cubic-bezier(.2,.7,.3,1) .55s forwards;
+}
+@keyframes plIn{to{opacity:1;transform:translateY(0)}}
+
+/* 顶部一行：提示符 + 曲名 */
+.pl-head{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:8px;
+  font-size:10.5px;
+  letter-spacing:.02em;
+  color:rgba(120,255,214,.72);
+  white-space:nowrap;
+  overflow:hidden;
+}
+.pl-prompt{color:#6ef2c4;flex:0 0 auto}
+.pl-name{
+  flex:1;
+  min-width:0;
+  color:rgba(255,255,255,.86);
+  font-family:'Noto Sans SC',-apple-system,sans-serif;
+  font-size:11.5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+/* 闪烁光标 */
+.pl-cursor{
+  flex:0 0 auto;
+  width:6px;
+  height:11px;
+  background:#6ef2c4;
+  box-shadow:0 0 7px rgba(110,242,196,.85);
+  animation:blink 1.06s steps(1) infinite;
+}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+/* 进度轨道：分段刻度，像终端读取 */
+.pl-track{
+  position:relative;
+  height:9px;
+  border-radius:2px;
+  background:rgba(255,255,255,.055);
+  overflow:hidden;
+  cursor:pointer;
+  margin-bottom:7px;
+  box-shadow:inset 0 0 0 1px rgba(120,255,214,.10);
+}
+/* 已播放：青色渐变 + 扫光 */
+.pl-fill{
+  position:absolute;
+  inset:0 auto 0 0;
+  width:0%;
+  border-radius:2px;
+  background:linear-gradient(90deg,rgba(110,242,196,.42),#6ef2c4);
+  box-shadow:0 0 10px rgba(110,242,196,.55),0 0 22px rgba(110,242,196,.22);
+  transition:width .22s linear;
+}
+.pl-fill::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-100%);
+  animation:sweep 1.9s linear infinite;
+}
+@keyframes sweep{to{transform:translateX(100%)}}
+
+/* 分段刻度线覆盖层 */
+.pl-scale{
+  position:absolute;
+  inset:0;
+  background-image:repeating-linear-gradient(90deg,rgba(10,14,16,.92) 0 1px,transparent 1px 7px);
+  pointer-events:none;
+}
+/* 悬停显示的时间气泡 */
+.pl-hover{
+  position:absolute;
+  bottom:15px;
+  transform:translateX(-50%);
+  padding:1px 5px;
+  border-radius:3px;
+  background:rgba(10,14,16,.92);
+  border:1px solid rgba(110,242,196,.32);
+  color:#6ef2c4;
+  font-size:9.5px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .14s;
+}
+.pl-track:hover .pl-hover{opacity:1}
+
+/* 底部：时间 + 按钮 */
+.pl-bar{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.pl-time{
+  font-size:10px;
+  color:rgba(120,255,214,.62);
+  letter-spacing:.03em;
+  font-variant-numeric:tabular-nums;
+  flex:0 0 auto;
+}
+.pl-time span{color:rgba(255,255,255,.32)}
+.pl-btns{margin-left:auto;display:flex;align-items:center;gap:5px}
+.pl-btn{
+  width:24px;
+  height:24px;
+  display:grid;
+  place-items:center;
+  border:none;
+  border-radius:6px;
+  background:rgba(255,255,255,.055);
+  color:rgba(120,255,214,.88);
+  cursor:pointer;
+  transition:background .18s,color .18s,box-shadow .18s;
+  padding:0;
+}
+.pl-btn:hover{
+  background:rgba(110,242,196,.16);
+  color:#d6fff2;
+  box-shadow:0 0 12px rgba(110,242,196,.35);
+}
+.pl-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pl-btn.play{background:rgba(110,242,196,.14);color:#6ef2c4}
+.pl-btn.play svg{width:14px;height:14px}
+
+@media (max-width:860px){
+  .pl-box{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    width:auto;
+    max-width:none;
+    z-index:70;
+  }
+  .pl-head{font-size:10px;margin-bottom:7px}
+  .pl-track{height:8px}
+  .pl-time{font-size:10px}
+}
+
+/* ============ 底栏 ============ */
+.footbar{
+  flex-shrink:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 20px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow);
+  font-size:12px;
+  color:var(--txt-dim);
+}
+.footbar .left{display:flex;align-items:center;gap:9px}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#5fd08a;
+  box-shadow:0 0 0 0 rgba(95,208,138,.55);
+  animation:pulse 2.4s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(95,208,138,.55)}
+  70%{box-shadow:0 0 0 7px rgba(95,208,138,0)}
+  100%{box-shadow:0 0 0 0 rgba(95,208,138,0)}
+}
+.footbar a{color:rgba(255,255,255,.72);text-decoration:none;transition:color .2s}
+.footbar a:hover{color:#fff}
+
+/* 每日一言：底栏右侧那句 */
+.daily{
+  flex:1;
+  text-align:right;         /* 底栏只剩两块，名言靠右收尾更均衡 */
+  min-width:0;
+  font-size:12.5px;
+  line-height:1.5;
+  color:rgba(255,255,255,.66);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  letter-spacing:.03em;
+  transition:color .3s, opacity .3s;
+}
+.daily.loading{opacity:.45}
+.daily.ready{color:rgba(255,255,255,.82)}
+.daily .src{color:rgba(255,255,255,.4);margin-left:6px;font-size:11px}
+
+/* ============ 搜索框（可选） ============ */
+.search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 18px;
+  background:var(--glass);
+  border:1px solid var(--glass-b);
+  border-radius:999px;
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:var(--shadow);
+  width:100%;
+  max-width:420px;
+}
+.search svg{width:16px;height:16px;stroke:var(--txt-dim);fill:none;stroke-width:1.9;stroke-linecap:round;flex-shrink:0}
+.search input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:#fff;
+  font-size:13.5px;
+  font-family:inherit;
+  letter-spacing:.03em;
+}
+.search input::placeholder{color:rgba(255,255,255,.45)}
+
+/* ============ 入场动画 ============ */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.topbar,.profile,.icon,.footbar,.quote-box{animation:rise .7s cubic-bezier(.2,.8,.25,1) both}
+.topbar{animation-delay:.05s}
+.profile{animation-delay:.14s}
+.icon:nth-child(1){animation-delay:.22s}
+.icon:nth-child(2){animation-delay:.28s}
+.icon:nth-child(3){animation-delay:.34s}
+.icon:nth-child(4){animation-delay:.40s}
+.icon:nth-child(5){animation-delay:.46s}
+.icon:nth-child(6){animation-delay:.52s}
+.icon:nth-child(7){animation-delay:.58s}
+.icon:nth-child(8){animation-delay:.64s}
+.footbar{animation-delay:.66s}
+
+/* ============ 移动端 ============ */
+@media (max-width:860px){
+  body{overflow:auto}
+  .wrap{height:auto;min-height:100%;padding:16px 16px 132px;gap:16px}
+  .topbar{flex-direction:column;gap:10px}
+  .quote-box{max-width:100%;text-align:left;padding:12px 16px}
+  .clock-box{padding:12px 16px}
+  .clock-time{font-size:25px}
+  .main{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:16px;padding:8px 0}
+  .profile{max-width:100%;padding:20px;gap:16px}
+  .avatar{width:66px;height:66px;font-size:22px}
+  .info h1{font-size:21px}
+  .icons{flex-direction:row;flex-wrap:wrap;gap:10px;width:100%;margin-left:0}
+  .icon{
+    flex:1 1 calc(50% - 5px);
+    width:auto;
+    min-width:0;
+    height:44px;
+    padding:0 12px;
+  }
+  .icon:hover{transform:none}
+  .search{max-width:100%}
+  .footbar{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 16px}
+  .daily{
+    order:3;
+    flex:1 1 100%;
+    text-align:left;
+    white-space:normal;
+    overflow:visible;
+    font-size:11.5px;
+    line-height:1.6;
+    padding-top:2px;
+    border-top:1px solid rgba(255,255,255,.10);
+  }
+}
+
+/* ============ 电脑版适配（大屏） ============ */
+/* 内容不被拉伸，居中成一个合适宽度，窗口过矮时允许滚动 */
+@media (min-width:861px){
+  body{overflow:auto}                    /* 矮窗口能滚，不截断内容 */
+  .wrap{
+    height:auto;
+    min-height:100%;
+    padding:32px clamp(24px,5vw,64px);   /* 大屏留白更足 */
+  }
+  .main{gap:clamp(32px,4vw,72px)}        /* 左右两块距离随屏宽放大 */
+  .profile{padding:30px 36px}
+  .avatar{width:84px;height:84px;font-size:28px}
+  .info h1{font-size:31px}
+  .icons{width:210px}                    /* 大屏卡片再宽一点 */
+  .icon{height:48px}
+  .search{max-width:480px}
+}
+
+/* 超大屏（笔记本/台式）：字号与间距再上一档 */
+@media (min-width:1400px){
+  .wrap{max-width:1500px}
+  .info h1{font-size:34px}
+  .icon .label{font-size:14px}
+  .daily{font-size:13px}
+  .footbar{padding:16px 24px}
+}
+
+/* 矮屏笔记本（高度不够）：压缩纵向间距，避免内容溢出 */
+@media (min-width:861px) and (max-height:720px){
+  .wrap{padding:18px clamp(20px,4vw,48px);gap:12px}
+  .profile{padding:20px 26px}
+  .avatar{width:66px;height:66px;font-size:23px}
+  .info h1{font-size:26px}
+  .icon{height:42px}
+  .icons{gap:9px}
+  .clock-time{font-size:24px}
+  .quote-box{padding:12px 16px}
+}
+
+/* 鼠标设备：图标悬停才有位移，触屏不触发 */
+@media (hover:none){
+  .icon:hover{transform:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  body:hover .bg{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<canvas id="sakura" aria-hidden="true"></canvas>
+
+
+<div class="wrap">
+
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="clock-box">
+      <div class="clock-date" id="date">----</div>
+      <div class="clock-time" id="time">--:--<span>--</span></div>
+    </div>
+    <div class="quote-box">
+      <p id="quote">把该做的做完，再说别的。</p>
+      <cite id="quoteFrom">— 自己</cite>
+    </div>
+  </header>
+
+  <!-- 主体 -->
+  <main class="main">
+
+    <!-- 左：资料 -->
+    <section class="profile">
+      <div class="avatar" id="avatar">星</div>
+      <div class="info">
+        <h1>初开</h1>
+        <div class="sub">ChuKai · 小鸟游星野.xyz</div>
+        <div class="links">
+          <a href="https://chukai.cc" target="_blank" rel="noopener">博客</a>
+          <a href="https://github.com/LIUQiu111" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右：图标入口 -->
+    <nav class="icons">
+      <a class="icon" href="https://chukai.cc" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M7 7h9"/></svg>
+        <span class="label">博客</span>
+      </a>
+      <a class="icon" href="https://github.com/LIUQiu111" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-4 1.4-4-2.2-6-3m12 5v-3.6c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6.2 0C6.6 1.7 5.6 2 5.6 2a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 8.4c0 4.6 2.7 5.7 5.5 6-.4.4-.5.9-.5 1.5V21"/></svg>
+        <span class="label">GitHub</span>
+      </a>
+      <a class="icon" href="https://space.bilibili.com/1112680094" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 3l3 4M16 3l-3 4"/><path d="M9 12v3M15 12v3"/></svg>
+        <span class="label">Bilibili</span>
+      </a>
+      <a class="icon" href="https://xn--yet07uxvggp2bm4m.xyz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M20.2 13.1l-8.4 4.6a1.6 1.6 0 0 1-2.4-1.4V7.7a1.6 1.6 0 0 1 2.4-1.4l8.4 4.6a1.2 1.2 0 0 1 0 2.2z"/><path d="M4 7v10"/></svg>
+        <span class="label">星野</span>
+      </a>
+      <a class="icon" href="https://88828.win/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M5 3.5h14v5.5a7 7 0 0 1-14 0z"/><path d="M5 6H2.5a2.5 2.5 0 0 0 2.5 2.5"/><path d="M19 6h2.5A2.5 2.5 0 0 1 19 8.5"/><path d="M12 16v3.5"/><path d="M8.5 21h7"/><circle cx="9.5" cy="8" r=".9"/><circle cx="14.5" cy="8" r=".9"/></svg>
+         <span class="label">猪头</span>
+      </a>
+      <a class="icon" href="https://www.bing.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+        <span class="label">搜索</span>
+      </a>
+    </nav>
+
+  </main>
+
+  <!-- 底栏 -->
+  <footer class="footbar">
+    <div class="left"><span class="dot"></span><span id="state">上午了</span></div>
+    <div class="daily" id="daily" title="">静待满天繁星。</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- 背景图：有图就设在这里 ---------- */
+  var BG_URL = ''; // 例如 'bg.jpg' 或 'https://.../bg.jpg'
+  if (BG_URL) {
+    var bg = document.getElementById('bg');
+    bg.style.setProperty('--bg-img', "url('" + BG_URL + "')");
+    document.body.classList.add('has-image');
+  }
+
+  /* ---------- 头像：QQ 头像 API ---------- */
+  /* 填你的 QQ 号（纯数字）即可动态取头像；留空则显示 CK 字块。
+     接口：https://q1.qlogo.cn/g?b=qq&nk=<QQ号>&s=640
+     可选尺寸 s=40/100/140/640 */
+  var QQ_NUMBER = '2778680280';
+
+  /* 手动指定头像图（优先级高于 QQ_NUMBER），例如 'avatar.jpg' */
+  var AVATAR_URL = '';
+
+  var avatarEl = document.getElementById('avatar');
+
+  function setAvatar(src){
+    var img = new Image();
+    img.alt = '';
+    img.referrerPolicy = 'no-referrer';
+    img.onload = function(){ avatarEl.innerHTML = ''; avatarEl.appendChild(img); };
+    img.onerror = function(){ /* 失败保持 CK 字块，不显示破图 */ };
+    img.src = src;
+  }
+
+  if (AVATAR_URL) {
+    setAvatar(AVATAR_URL);
+  } else if (/^\d{5,12}$/.test(QQ_NUMBER)) {
+    setAvatar('https://q1.qlogo.cn/g?b=qq&nk=' + QQ_NUMBER + '&s=640');
+  }
+
+  /* ---------- 时钟 ---------- */
+  var DAYS = ['周日','周一','周二','周三','周四','周五','周六'];
+  var dateEl = document.getElementById('date');
+  var timeEl = document.getElementById('time');
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+  function tick(){
+    var d = new Date();
+    dateEl.textContent = d.getFullYear() + '年' + (d.getMonth()+1) + '月' +
+                         d.getDate() + '日 ' + DAYS[d.getDay()];
+    timeEl.innerHTML = pad(d.getHours()) + ':' + pad(d.getMinutes()) +
+                       '<span>' + pad(d.getSeconds()) + '</span>';
+    var h = d.getHours();
+    var s = h < 6 ? '深夜' : h < 12 ? '上午' : h < 14 ? '中午' : h < 18 ? '下午' : '晚上';
+    document.getElementById('state').textContent = s + '了';
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ---------- 语录（固定一句） ---------- */
+  document.getElementById('quote').textContent = '与其仓皇追赶落日，不如静待满天繁星。';
+  document.getElementById('quoteFrom').textContent = '— 自拟';
+
+  /* ---------- 每日一言 ----------
+     策略：本地句子打底（保证离线/接口挂了也有内容），
+          再尝试一言 API，成功则覆盖；按天缓存，一天只请求一次。 */
+  var DAILY_LOCAL = [
+    '人不能两次踏进同一条河流，但河流也不曾记得你。',
+    '我们恐惧的往往不是事情本身，而是对事情的想象。',
+    '深渊并不凝视你，它只是恰好在那儿，而你选择了往下看。',
+    '自由不是想做什么就做什么，而是不想做什么就能不做。',
+    '所有答案都在时间里，可时间从不回答。',
+    '你以为的顿悟，多半只是耐心终于攒够了。',
+    '人生的意义不是被找到的，是被一件件事物慢慢填进去的。',
+    '知道自己无知，是唯一不会过期的知识。',
+    '山不会因为你看它而变高，但你会因为登山而变矮。',
+    '痛苦来自期待与现实的差，缩小任何一边都算修行。',
+    '你无法叫醒装睡的人，但你可以选择不再喊。',
+    '真正的孤独不是身边没人，而是没有人需要你的解释。'
+  ];
+  var SOLITUDE_FALLBACK = '与其仓皇追赶落日，不如静待满天繁星。';
+
+  var dailyEl = document.getElementById('daily');
+  var dayKey = new Date().toISOString().slice(0, 10);
+  var CACHE_KEY = 'daily-word-' + dayKey;
+
+  function renderDaily(text, src){
+    dailyEl.textContent = text;
+    if (src) {
+      var sp = document.createElement('span');
+      sp.className = 'src';
+      sp.textContent = '— ' + src;
+      dailyEl.appendChild(sp);
+    }
+    dailyEl.classList.add('ready');
+    dailyEl.classList.remove('loading');
+    dailyEl.title = text + (src ? ' —— ' + src : '');
+  }
+
+  /* 先读当天缓存 */
+  var cached = null;
+  try { cached = localStorage.getItem(CACHE_KEY); } catch (e) {}
+  if (cached) {
+    try {
+      var c = JSON.parse(cached);
+      if (c && c.t) renderDaily(c.t, c.s);
+    } catch (e) {}
+  }
+
+  /* 没有缓存才请求，避免每次刷新都打接口 */
+  if (!cached) {
+    dailyEl.classList.add('loading');
+    /* 默认先显示本地句子，接口成功再替换 */
+    var localIdx = Math.floor(Date.now() / 86400000) % DAILY_LOCAL.length;
+    renderDaily(DAILY_LOCAL[localIdx], null);
+    dailyEl.classList.remove('ready');
+    dailyEl.classList.add('loading');
+
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 6000) : null;
+
+    fetch('https://v1.hitokoto.cn/?c=k&c=d&encode=json&charset=utf-8',
+          ctrl ? { signal: ctrl.signal } : {})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (timer) clearTimeout(timer);
+        if (!d || !d.hitokoto) return;
+        var text = String(d.hitokoto).trim();
+        /* 过短或过长的不要，留着更耐看 */
+        if (text.length < 8 || text.length > 42) return;
+        var src = d.from ? String(d.from) : '';
+        renderDaily(text, src);
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ t: text, s: src }));
+        } catch (e) {}
+      })
+      .catch(function(){
+        if (timer) clearTimeout(timer);
+        /* 失败：保留已显示的本地句子，不报错 */
+        dailyEl.classList.remove('loading');
+        dailyEl.classList.add('ready');
+      });
+  }
+
+})();
+</script>
+<!-- ============ 播放器（黑客风） ============ -->
+<div class="pl-box" id="plBox">
+  <div class="pl-head">
+    <span class="pl-prompt">~/music $</span>
+    <span class="pl-name" id="plName">loading…</span>
+    <span class="pl-cursor"></span>
+  </div>
+
+  <div class="pl-track" id="plTrack">
+    <div class="pl-fill" id="plFill"></div>
+    <div class="pl-scale"></div>
+    <div class="pl-hover" id="plHover">0:00</div>
+  </div>
+
+  <div class="pl-bar">
+    <div class="pl-time"><b id="plCur">0:00</b><span> / </span><b id="plDur">0:00</b></div>
+    <div class="pl-btns">
+      <button class="pl-btn" id="plPrev" aria-label="上一首" title="上一首">
+        <svg viewBox="0 0 24 24"><path d="M18 5v14M7 12l10-7v14z"/></svg>
+      </button>
+      <button class="pl-btn play" id="plPlay" aria-label="播放/暂停" title="播放/暂停">
+        <svg viewBox="0 0 24 24" id="plPlayIco"><path d="M7 4l13 8-13 8z"/></svg>
+      </button>
+      <button class="pl-btn" id="plNext" aria-label="下一首" title="下一首">
+        <svg viewBox="0 0 24 24"><path d="M6 5v14M17 12L7 5v14z"/></svg>
+      </button>
+      <button class="pl-btn" id="plVol" aria-label="静音" title="静音">
+        <svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M16 9c1.2 1.5 1.2 4.5 0 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<audio id="plAudio" preload="none" crossorigin="anonymous"></audio>
+
+<script>
+/* ================= 樱花飘落（轻量 canvas 重写） =================
+   原 yinghua.js 是 63KB 的 DOM 花瓣，移动端会掉帧。
+   这里用 canvas 绘制，花瓣 22 片（手机 12 片），requestAnimationFrame 驱动。
+   好处：GPU 合成、不产生 DOM 节点、页面滚动/交互不受影响。
+   尊重 prefers-reduced-motion：用户开了减弱动效就只画静态。
+*/
+(function () {
+  var cv = document.getElementById('sakura');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0, petals = [];
+
+  var COLORS = ['rgba(255,192,210,', 'rgba(255,167,196,', 'rgba(255,225,235,', 'rgba(248,180,205,'];
+  var isMobile = window.innerWidth <= 860;
+  var COUNT = reduce ? 0 : (isMobile ? 12 : 22);
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = Math.floor(W * dpr);
+    cv.height = Math.floor(H * dpr);
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function makePetal(init) {
+    return {
+      x: Math.random() * W,
+      y: init ? Math.random() * H : -20 - Math.random() * 60,
+      r: 3 + Math.random() * 4.2,          /* 花瓣半径 */
+      vy: .35 + Math.random() * .75,        /* 下落速度 */
+      vx: -.25 + Math.random() * .65,       /* 横向漂移 */
+      a: Math.random() * Math.PI * 2,       /* 自转角 */
+      va: (-.012 + Math.random() * .024),   /* 自转速度 */
+      sway: Math.random() * Math.PI * 2,    /* 摆动相位 */
+      swaySpd: .006 + Math.random() * .012, /* 摆动速度 */
+      swayAmp: .25 + Math.random() * .55,   /* 摆动幅度 */
+      alpha: .35 + Math.random() * .45,
+      color: COLORS[(Math.random() * COLORS.length) | 0],
+      flip: Math.random() * Math.PI * 2,    /* 翻转相位，制造厚薄感 */
+      flipSpd: .01 + Math.random() * .02
+    };
+  }
+
+  function drawPetal(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.a);
+    /* 用一个椭圆 + 缺口模拟花瓣：压扁程度随翻转相位变化 */
+    var sq = Math.abs(Math.cos(p.flip));           /* 0~1，越小越"侧对" */
+    ctx.scale(1, .42 + sq * .58);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, p.r, p.r * .78, 0, 0, Math.PI * 2);
+    ctx.fillStyle = p.color + p.alpha + ')';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < petals.length; i++) {
+      var p = petals[i];
+      p.sway += p.swaySpd;
+      p.y += p.vy;
+      p.x += p.vx + Math.sin(p.sway) * p.swayAmp;
+      p.a += p.va;
+      p.flip += p.flipSpd;
+      /* 出界回收 */
+      if (p.y > H + 30 || p.x < -40 || p.x > W + 40) {
+        petals[i] = makePetal(false);
+        continue;
+      }
+      drawPetal(p);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  for (var i = 0; i < COUNT; i++) petals.push(makePetal(true));
+  if (COUNT > 0) requestAnimationFrame(tick);
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      resize();
+      /* 窗口变化后重新铺一遍，避免稀疏 */
+      while (petals.length < COUNT) petals.push(makePetal(true));
+      petals.length = COUNT;
+    }, 200);
+  });
+  /* 切到后台就停，省电 */
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      window.__sakuraPaused = true;
+    } else {
+      window.__sakuraPaused = false;
+    }
+  });
+})();
+</script>
+
+<script>
+/* ================= 播放器 · 网易云公开接口 =================
+   说明：xf-MusicPlayer 官方脚本会自己注入一套悬浮 UI，
+   并且 console 里带"旧版播放器，请升级"的提示，和这里的进度条会打架。
+   所以这里不引它，直接走同一个网易云数据源，自己控制界面。
+   接口失败会自动跳过并尝试下一首，不会卡死在 loading。
+*/
+(function () {
+  var audio   = document.getElementById('plAudio');
+  var nameEl  = document.getElementById('plName');
+  var fillEl  = document.getElementById('plFill');
+  var curEl   = document.getElementById('plCur');
+  var durEl   = document.getElementById('plDur');
+  var trackEl = document.getElementById('plTrack');
+  var hoverEl = document.getElementById('plHover');
+  var playIco = document.getElementById('plPlayIco');
+  if (!audio || !trackEl) return;
+
+  var MODE_RANDOM = true;   /* 对应你原来的 data-random="true" */
+  var API_TOP = 'https://music.api.xfyun.club/api/v1/music/top?platform=netease&topId=';
+  var API_SONG = 'https://music.api.xfyun.club/api/v1/music/song?platform=netease&id=';
+  var TOP_IDS = ['3778678', '19723756', '2884035', '3779629'];
+
+  var list = [];       /* [{id,name,artist}] */
+  var idx = 0;
+  var history = [];    /* 「上一首」用 */
+  var muted = false;
+  var started = false; /* 用户是否点过播放（绕过自动播放限制） */
+  var skipCount = 0;   /* 连续跳过的曲目数，防止版权全部失效时无限循环 */
+
+  /* 探测直链是否还能拿到音频：HEAD 优先，零字节流量；失败再退回 Range 1 字节 */
+  function probeSrc(src) {
+    if (!src) return Promise.resolve(false);
+    return fetch(src, { method: 'HEAD', cache: 'no-store' })
+      .then(function (r) {
+        if (r.ok) return true;
+        /* 有些 CDN 不支持 HEAD，用 1 字节 Range 再试一次 */
+        return fetch(src, { method: 'GET', headers: { Range: 'bytes=0-0' }, cache: 'no-store' })
+          .then(function (r2) { return r2.ok || r2.status === 206; });
+      })
+      .catch(function () { return false; });
+  }
+
+  function fmt(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    var m = Math.floor(s / 60), q = Math.floor(s % 60);
+    return m + ':' + (q < 10 ? '0' : '') + q;
+  }
+
+  function setPlayIcon(playing) {
+    playIco.innerHTML = playing
+      ? '<path d="M8 5v14M16 5v14"/>'
+      : '<path d="M7 4l13 8-13 8z"/>';
+  }
+
+  function setName(txt) {
+    nameEl.textContent = txt || '——';
+  }
+
+  /* 拉榜单，随机挑一个榜 */
+  function loadList() {
+    var topId = TOP_IDS[(Math.random() * TOP_IDS.length) | 0];
+    return fetch(API_TOP + topId)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return null;
+        var arr = d.data || d.songs || (d.result && d.result.songs) || d;
+        if (!Array.isArray(arr)) return null;
+        /* 榜单接口每首自带 src 直链，别再走后端 song 接口（实测 400） */
+        list = arr.map(function (s) {
+          return {
+            id: s.id,
+            src: s.src || s.url || '',
+            name: s.title || s.name || '未知曲目',
+            artist: s.artist || (s.artists && s.artists[0] && s.artists[0].name) || '',
+            dur: s.duration || 0,
+            cover: s.cover || '',
+            pay: !!s.pay
+          };
+        }).filter(function (s) { return s.src; });
+        return list.length ? list : null;
+      })
+      .catch(function () { return null; });
+  }
+
+  /* 取直链并播放 */
+  function playIndex(i, pushHistory) {
+    if (!list.length) return;
+    i = ((i % list.length) + list.length) % list.length;
+    if (pushHistory !== false && list[idx] && i !== idx) history.push(idx);
+    idx = i;
+    var s = list[idx];
+    setName(s.name + (s.artist ? ' — ' + s.artist : ''));
+    /* 先用接口给的 duration 占位显示时长，避免加载前显示 0:00 */
+    if (s.dur) { durEl.textContent = fmt(s.dur); }
+    curEl.textContent = '0:00';
+    fillEl.style.width = '0%';
+
+    if (!s.src) {
+      /* 没直链的直接跳下一首，最多连跳一轮 */
+      setName(s.name + ' — 无源');
+      skipCount++;
+      if (list.length > 1 && skipCount < list.length) {
+        setTimeout(function () { playIndex(idx + 1, false); }, 400);
+      } else {
+        skipCount = 0;
+        setName('本轮无可用曲目');
+      }
+      return;
+    }
+
+    audio.src = s.src;
+    audio.volume = .75;
+    audio.load();
+
+    var pr = null;
+    try { pr = audio.play(); } catch (e) { pr = null; }
+    if (pr && pr.then) {
+      pr.then(function () { skipCount = 0; setPlayIcon(true); })
+        .catch(function () {
+          /* 浏览器拦了自动播放，或音频断链：提示后停在当前曲目 */
+          setPlayIcon(false);
+        });
+    }
+  }
+
+  function next() { MODE_RANDOM ? playIndex((Math.random() * list.length) | 0) : playIndex(idx + 1); }
+  function prev() {
+    if (history.length) { playIndex(history.pop(), false); }
+    else { playIndex(idx - 1, false); }
+  }
+
+  /* ---- 事件绑定 ---- */
+  var btnPlay = document.getElementById('plPlay');
+  var btnNext = document.getElementById('plNext');
+  var btnPrev = document.getElementById('plPrev');
+  var btnVol  = document.getElementById('plVol');
+
+  if (btnPlay) btnPlay.addEventListener('click', function () {
+    /* 没加载过曲目 → 先拉榜单再播 */
+    if (!list.length) {
+      setName('loading…');
+      loadList().then(function () {
+        if (list.length) playIndex(0);
+        else setName('榜单拉取失败');
+      });
+      return;
+    }
+    /* 当前没有 src（尚未选歌）→ 直接播当前索引 */
+    if (!audio.src) { playIndex(idx); return; }
+    if (audio.paused) {
+      var p = audio.play();
+      if (p && p.then) p.then(function () { setPlayIcon(true); }).catch(function () {});
+    } else {
+      audio.pause();
+    }
+  });
+
+  if (btnNext) btnNext.addEventListener('click', next);
+  if (btnPrev) btnPrev.addEventListener('click', prev);
+
+  if (btnVol) btnVol.addEventListener('click', function (e) {
+    muted = !muted;
+    audio.muted = muted;
+    e.currentTarget.style.opacity = muted ? '.45' : '1';
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    var d = audio.duration;
+    if (d && isFinite(d)) {
+      var pct = audio.currentTime / d * 100;
+      fillEl.style.width = pct + '%';
+      durEl.textContent = fmt(d);
+    }
+    curEl.textContent = fmt(audio.currentTime);
+  });
+
+  audio.addEventListener('play',  function () { setPlayIcon(true); });
+  audio.addEventListener('pause', function () { setPlayIcon(false); });
+  audio.addEventListener('ended', next);
+  audio.addEventListener('error', function () {
+    /* 播放失败：先探测这条直链还能不能拿到音频，再决定跳过还是停下 */
+    var s = list[idx] || {};
+    var title = s.name || '当前曲目';
+    setName(title + ' — 正在检测…');
+
+    probeSrc(s.src).then(function (alive) {
+      if (!alive) {
+        s.dead = true;              /* 标记为不可播，本轮不再选它 */
+        skipCount++;
+        var pool = list.filter(function (x) { return !x.dead; });
+        if (pool.length > 1 && skipCount < list.length) {
+          setName(title + ' — 不可播，换一首');
+          setTimeout(function () { next(); }, 700);
+        } else {
+          skipCount = 0;
+          setPlayIcon(false);
+          setName('本轮曲目均不可播');
+        }
+      } else {
+        setPlayIcon(false);
+        setName(title + ' — 播放失败，点击重试');
+      }
+    });
+  });
+
+  /* 点击进度条跳转 */
+  trackEl.addEventListener('click', function (e) {
+    var r = trackEl.getBoundingClientRect();
+    var ratio = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+    if (audio.duration && isFinite(audio.duration)) {
+      audio.currentTime = ratio * audio.duration;
+    }
+  });
+
+  /* 悬停预览时间 */
+  trackEl.addEventListener('mousemove', function (e) {
+    var r = trackEl.getBoundingClientRect();
+    var ratio = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+    hoverEl.style.left = (ratio * 100) + '%';
+    hoverEl.textContent = fmt((audio.duration || 0) * ratio);
+  });
+
+  /* 键盘：空格播放/暂停，← → 切歌 */
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.code === 'Space') { e.preventDefault(); if (btnPlay) btnPlay.click(); }
+    if (e.code === 'ArrowRight' && e.altKey) next();
+    if (e.code === 'ArrowLeft'  && e.altKey) prev();
+  });
+
+  /* 启动：先拉榜单，拿到再等用户点击（浏览器禁止无声自动播放） */
+  setName('ready — 点击播放');
+  loadList().then(function () {
+    if (!list.length) { setName('接口不可用'); return; }
+    setName('已载入 ' + list.length + ' 首 — 点击播放');
+  });
+})();
+</script>
+
+</body>
+</html>
